@@ -1,0 +1,5 @@
+[user]
+	name = retar-kamuy
+	email = hoshi.takumi.jp@gmail.com
+[credential]
+	helper = "!f() { /root/.vscode-server/bin/5437499feb04f7a586f677b155b039bc2b3669eb/node /tmp/vscode-remote-containers-a1116b22-4e89-4f75-bc22-1caf993f5f10.js git-credential-helper $*; }; f"
