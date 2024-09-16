@@ -36,8 +36,7 @@ task case_000();
     testbench.enable        = 0;
     @(negedge testbench.i2c_master_busy);
     $display("Master has finsihed reading");
-    // testbench.sb.write_obs(testbench.i2c_master_miso_data);
-    testbench.sb.write_obs(8'h00);
+    testbench.sb.write_obs(testbench.i2c_master_miso_data);
 
 endtask: case_000
 
