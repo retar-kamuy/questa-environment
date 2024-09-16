@@ -1,1 +1,6 @@
 ModelSimSetup-*-linux.run
+
+work/
+transcript
+*.wlf
+log/

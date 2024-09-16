@@ -1,20 +1,28 @@
-quit -sim
-.main clear
+set TESTCASES   {case_000 case_001}
 
-file delete -force presynth
-vlib presynth
-vmap presynth presynth
+set DO_CMD      {add wave -r /*; do run_all.do; quit}
+set LOGDIR      log
 
-vlog -sv -work presynth \
+set VLOG_FLAGS  {-sv -work work +incdir+test/case_000 +incdir+test/case_001}
+set VSIM_FLAGS  {-voptargs=+acc}
+lappend VSIM_FLAGS -do "{*}${DO_CMD}"
+
+vlib work
+vmap work
+
+if { [file exists ${LOGDIR}] == 1 } then {
+    file delete -force ${LOGDIR}
+}
+file mkdir ${LOGDIR}
+
+vlog {*}${VLOG_FLAGS} -l ${LOGDIR}/vlog.log \
     "rtl/i2c_master.sv" \
     "test/i2c_slave.v" \
     "test/testbench.sv"
 
-vsim -voptargs=+acc -L presynth -work presynth -t 1ps presynth.testbench
-add log -r /*
-
-if {[file exists "wave.do"]} {
-    do  "wave.do"
+foreach case ${TESTCASES} {
+    file mkdir ${LOGDIR}/${case}
+    vsim {*}${VSIM_FLAGS} -l ${LOGDIR}/${case}/vsim.log -wlf ${LOGDIR}/${case}/vsim.wlf +${case} work.testbench
 }
 
 run -all

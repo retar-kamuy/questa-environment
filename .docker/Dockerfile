@@ -15,3 +15,4 @@ RUN dnf -y install glibc.i686 ncurses-libs.i686 libstdc++.i686 \
     --accept_eula 1 \
     && rm -f ./ModelSimSetup-20.1.1.720-linux.run
 ENV MTI_PATH=/opt/intelFPGA/20.1/modelsim_ase
+ENV PATH=$MTI_PATH/bin:${PATH}

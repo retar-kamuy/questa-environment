@@ -1,25 +1,5 @@
-//////////////////////////////////////////////////////////////////////////////////
-// Company:       www.circuitden.com
-// Engineer:      Artin Isagholian
-//                artinisagholian@gmail.com
-//
-// Create Date:    15:43:35 4/22/2020
-// Design Name:
-// Module Name:    case_001
-// Project Name:
-// Target Devices:
-// Tool versions:
-// Description:
-//
-// Dependencies:
-//
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-//
-//////////////////////////////////////////////////////////////////////////////////
-`ifndef _case_001_svh_
-`define _case_001_svh_
+`ifndef CASE_001_SVH_
+`define CASE_001_SVH_
 
 task case_001();
 
@@ -31,6 +11,7 @@ task case_001();
     testbench.data_to_write = 8'hDC;
     testbench.device_addr   = 7'b001_0001;  //slave address
     testbench.divider       = 16'hFFFF;     //divider value for i2c serial clock
+    testbench.sb.write_exp(testbench.data_to_write);
     @(posedge testbench.clock);
     $display("Enabling master");
     testbench.enable        = 1;
@@ -55,9 +36,8 @@ task case_001();
     testbench.enable        = 0;
     @(negedge testbench.i2c_master_busy);
     $display("Master has finsihed reading");
-    assert (testbench.i2c_master_miso_data == 8'hDC) $display ("Read correct data from address 1");
-        else $error("Read back incorrect data from address 1. Expected %h but got %h", 8'hDC, testbench.i2c_master_miso_data);
+    testbench.sb.write_obs(testbench.i2c_master_miso_data);
 
 endtask: case_001
 
-`endif
+`endif  // CASE_001_SVH_

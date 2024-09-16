@@ -19,9 +19,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-`include "./case_000/case_000.svh"
-`include "./case_001/case_001.svh"
-
+`include "case_000.svh"
+`include "case_001.svh"
+`include "scoreboard.svh"
 
 module testbench;
 
@@ -30,6 +30,8 @@ localparam  REGISTER_WIDTH      =   8;
 localparam  ADDRESS_WIDTH       =   7;
 localparam  CLOCK_FREQUENCY     =   50_000_000;
 localparam  CLOCK_PERIOD        =   1e9/CLOCK_FREQUENCY;
+
+scoreboard sb;
 
 reg             clock           =   0;
 reg             reset_n         =   1;
@@ -94,6 +96,9 @@ initial begin
     end
 end
 
+initial begin
+    sb = new();
+end
 
 initial begin
     @(posedge clock)
@@ -106,12 +111,15 @@ initial begin
     reset_n = 1;
     #100;
 
-    $display("Running case 000");
-    case_000();
-    $display("Running case 001");
-    case_001();
+    if ($test$plusargs("case_000")) begin
+        $display("Running case 000");
+        case_000();
+    end else if ($test$plusargs("case_001")) begin
+        $display("Running case 001");
+        case_001();
+    end
     $display("Tests have finsihed");
-    $stop();
+    $finish();
 end
 
 

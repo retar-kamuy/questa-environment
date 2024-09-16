@@ -1,5 +1,9 @@
-# Tiny_But_Mighty_I2C_Master_Verilog
-I2C Master Verilog module
+# Questa Environment
 
-More info at:
-http://www.circuitden.com/blog/21
+[run_all.do](run_all.do)を使用することにより、[scoreboard.svh](scoreboard.svh)で期待値不一致が発生した場合、returncodeとして`1`を出力する。
+
+## Usage
+
+```sh
+vsim -c -do run.tcl
+```

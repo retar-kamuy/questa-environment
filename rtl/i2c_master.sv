@@ -1,65 +1,23 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company:  www.circuitden.com
-// Engineer: Artin Isagholian
-//           artinisagholian@gmail.com
-// 
-// Create Date: 01/20/2021 05:47:22 PM
-// Design Name: 
-// Module Name: i2c_master
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 module i2c_master#(
     parameter DATA_WIDTH      = 8,
     parameter REGISTER_WIDTH  = 8,
     parameter ADDRESS_WIDTH   = 7
 )(
-    input   wire                            clock,
-    input   wire                            reset_n,
-    input   wire                            enable,
-    input   wire                            read_write,
-    input   wire    [DATA_WIDTH-1:0]        mosi_data,
-    input   wire    [REGISTER_WIDTH-1:0]    register_address,
-    input   wire    [ADDRESS_WIDTH-1:0]     device_address,
-    input   wire    [15:0]                  divider,
+    input                                   clock,
+    input                                   reset_n,
+    input                                   enable,
+    input                                   read_write,
+    input           [DATA_WIDTH-1:0]        mosi_data,
+    input           [REGISTER_WIDTH-1:0]    register_address,
+    input           [ADDRESS_WIDTH-1:0]     device_address,
+    input           [15:0]                  divider,
 
-    output  reg     [DATA_WIDTH-1:0]        miso_data,
-    output  reg                             busy,
+    output  logic   [DATA_WIDTH-1:0]        miso_data,
+    output  logic                           busy,
 
     inout                                   external_serial_data,
     inout                                   external_serial_clock
 );
-
-
- /*INSTANTATION TEMPLATE
-i2c_master #(.DATA_WIDTH(8),.REGISTER_WIDTH(8),.ADDRESS_WIDTH(7))
-        i2c_master_inst(
-            .clock                  (),
-            .reset_n                (),
-            .enable                 (),
-            .read_write             (),
-            .mosi_data              (),
-            .register_address       (),
-            .device_address         (),
-            .divider                (),
-
-            .miso_data              (),
-            .busy                   (),
-
-            .external_serial_data   (),
-            .external_serial_clock  ()
-        );
-*/
 
 typedef enum
 {
