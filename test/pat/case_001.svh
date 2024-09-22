@@ -3,15 +3,15 @@
 
 task case_001();
 
-    $display(" Writing value 8'hDC to address 1");
+    $display(" Writing value 8'hAC to address 0");
     $display("Configuring master");
     @(posedge testbench.clock);
     testbench.rw            = 0;            //write operation
-    testbench.reg_addr      = 8'h01;        //writing to slave register 1
-    testbench.data_to_write = 8'hDC;
+    testbench.reg_addr      = 8'h00;        //writing to slave register 0
+    testbench.data_to_write = 8'hAC;
     testbench.device_addr   = 7'b001_0001;  //slave address
     testbench.divider       = 16'hFFFF;     //divider value for i2c serial clock
-    testbench.sb.write_exp(testbench.data_to_write);
+    testbench.sb.write_exp(8'h00);
     @(posedge testbench.clock);
     $display("Enabling master");
     testbench.enable        = 1;
@@ -25,7 +25,7 @@ task case_001();
     $display("Configuring master");
     @(posedge testbench.clock);
     testbench.rw            = 1;            //read operation
-    testbench.reg_addr      = 8'h01;        //reading from slave register 1
+    testbench.reg_addr      = 8'h00;        //reading from slave register 0
     testbench.data_to_write = 8'h00;
     testbench.device_addr   = 7'b001_0001;  //slave address
     @(posedge testbench.clock);
@@ -38,6 +38,6 @@ task case_001();
     $display("Master has finsihed reading");
     testbench.sb.write_obs(testbench.i2c_master_miso_data);
 
-endtask: case_001
+endtask
 
 `endif  // CASE_001_SVH_

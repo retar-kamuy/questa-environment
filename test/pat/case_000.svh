@@ -38,6 +38,6 @@ task case_000();
     $display("Master has finsihed reading");
     testbench.sb.write_obs(testbench.i2c_master_miso_data);
 
-endtask: case_000
+endtask
 
 `endif  // CASE_000_SVH_

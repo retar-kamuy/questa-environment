@@ -13,8 +13,9 @@ class scoreboard#(
 
     virtual function void write_obs(logic [DATA_WIDTH-1:0] data);
         this.exp = this.exp_queue.pop_front();
-        assert (data === this.exp) $info("Read correct data");
-        else begin $error("Read incorrect data. Expected %h but got %h", this.exp, data); $stop(); end
+        assert (data === this.exp) $info("PASS ! data=%h", data);
+        // else begin $error("FAIL ! data=%h, exp=%h", data, this.exp); $stop(); end
+        else $error("FAIL ! data=%h, exp=%h", data, this.exp);
     endfunction
 
 endclass

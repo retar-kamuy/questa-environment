@@ -5,7 +5,7 @@ COPY .docker/ModelSimSetup-20.1.1.720-linux.run /root/
 RUN dnf -y install glibc.i686 ncurses-libs.i686 libstdc++.i686 \
     && dnf -y install zlib.i686 bzip2 bzip2-libs.i686 \
     && dnf -y install libXext.i686 libXft.i686 \
-    && dnf -y install git \
+    && dnf -y install git make python3 \
     && dnf clean all \
     && ./ModelSimSetup-20.1.1.720-linux.run \
     --mode unattended \
