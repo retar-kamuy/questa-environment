@@ -1,8 +1,9 @@
-import glob
 import re
 import sys
 
-logs = glob.glob("log/**/*.log", recursive=True)
+import find
+
+logs = find.find(['log'], name=['*.log'], type='f', recursive=True)
 
 errors = 0
 
@@ -15,4 +16,5 @@ for log in logs:
         m = re.search(r'^#\sErrors:\s(\d+),\sWarnings:\s(\d+)', foot)
         errors += int(m.group(1))
 
+print(errors)
 sys.exit(errors)
